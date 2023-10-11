@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wizard Score</title>
+    <script src="https://cdn.jsdelivr.net/npm/handlebars@latest/dist/handlebars.js"></script>
+    
+</head>
+<body>
+    
+    <h1>Wizard Score</h1>
+    <p>Enter your name and click the button:</p>
+    <input id="name" type="text" class="player-name" value="Name" onfocus="this.value=''">
+    <button class="add-player">Add Player</button>
+    <div id="template-container"></div>
+
+    <script id="my-template" type="text/x-handlebars-template">
+        {{#each players}}
+        <div class="player">
+            <h2>{{playerName}}</h2>
+        </div>
+        {{/each}}
+    </script>
+    <script id="buttons" type="text/x-handlebars-template">
+        <h3>Number of Rounds: {{numberOfRounds}}</h3>
+        <button class="start-game">Start! 🧙‍♂️</button>
+        <button class="reset">Reset</button>
+    </script>
+
+
+    
+    <script src="scripts.js"></script>
+</body>
+</html>
