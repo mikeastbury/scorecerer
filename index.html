@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Wizard Score</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 120 100%22><text y=%22.9em%22 font-size=%2290%22>🧙‍♂️</text></svg>">
+    <title>Wizard!</title>
     <script src="https://cdn.jsdelivr.net/npm/handlebars@latest/dist/handlebars.js"></script>
     
 </head>
@@ -15,7 +16,7 @@
     <button class="add-player">Add Player</button>
     <div id="template-container"></div>
 
-    <script id="my-template" type="text/x-handlebars-template">
+    <script id="start" type="text/x-handlebars-template">
         {{#each players}}
         <div class="player">
             <h2>{{playerName}}</h2>
@@ -23,9 +24,13 @@
         {{/each}}
     </script>
     <script id="buttons" type="text/x-handlebars-template">
-        <h3>Number of Rounds: {{numberOfRounds}}</h3>
         <button class="start-game">Start! 🧙‍♂️</button>
         <button class="reset">Reset</button>
+    </script>
+    <script id="bidding" type="text/x-handlebars-template">
+        <h3>Round {{roundNumber}}</h3>
+        <h3>Number of Tricks: {{numberOfTricks}}</h3>
+        <h3>Number of Bids: {{numberOfBids}}</h3>
     </script>
 
 
