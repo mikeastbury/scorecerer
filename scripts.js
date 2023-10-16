@@ -59,6 +59,16 @@ function DisableButton() {
   }
 }
 
+// Function to check if its the last round
+function isLastRound() {
+  if (state.round === howManyRounds()) {
+    return true;
+  }
+  else {
+    return false;
+  }
+}
+
 // ********************************Event listeners ***************************************
   templateContainer.addEventListener('click', (event) => {
     if (event.target.classList.contains('add-player')) {
@@ -68,10 +78,16 @@ function DisableButton() {
       reset();
     }
     else if (event.target.classList.contains('start-game')) {
-      startGame();
+      biddingPage();
     }
     else if (event.target.classList.contains('submit-bids')) {
       roundResults();
+    }
+    else if (event.target.classList.contains('next-round')) {
+      biddingPage();
+    }
+    else if (event.target.classList.contains('score-board')) {
+      console.log("score board click");
     }
   });
 
@@ -101,13 +117,16 @@ function addPlayerToState() {
 
 // ********************************Bidding Page ********************************************
 // Start game and render bidding
-function startGame() {
+function biddingPage() {
   // Clear the template container
   templateContainer.innerHTML = '';
+  // Increase round count
+  state.round++;
+  let currentRound = state.round;
   // Add bidding template
   const biddingHtmlWithPlayers = biddingTemplate({
     roundNumber: currentRound,
-    numberOfTricks: currentRound + 1,
+    numberOfTricks: currentRound,
     players: state.players
   });
   templateContainer.innerHTML += biddingHtmlWithPlayers;
@@ -117,6 +136,9 @@ function startGame() {
 // ********************************Results Page ********************************************
 // Render results
 function roundResults() {
+  const lastRound = isLastRound();
+  console.log(lastRound);
+  let currentRound = state.round;
   // Clear the template container
   templateContainer.innerHTML = '';
   // Add results template
@@ -128,5 +150,14 @@ function roundResults() {
   templateContainer.innerHTML = resultsHtml;
 }
 
+// ********************************ScoreBoard Page ********************************************
 
-// fix round number!
+function scoreBoard() {
+  console.log("score")
+}
+
+
+
+// ********************************End Page ********************************************
+
+// figure out flow between rounds, scoreboard, and end page
