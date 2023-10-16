@@ -3,17 +3,41 @@ let state = {
     round: 0,
 }
 
-//App variables
+//State variables
 let NumberOfPlayers = state.players.length;
-const currentRound = state.round;
+let currentRound = state.round;
+
+// Handlebars templates: start, buttons, bidding, results
+// Render the "start" template
 const templateSource = document.getElementById('start').innerHTML;
 const template = Handlebars.compile(templateSource);
 const templateContainer = document.getElementById('template-container');
 
-//Template variables
+// Render the "start" template on load
+const playerHtml = template({ players: state.players, numberOfRounds: howManyRounds() });
+templateContainer.innerHTML = playerHtml;
+
+// Render the "buttons" template
+const buttonsTemplateSource = document.getElementById('buttons').innerHTML;
+const buttonsTemplate = Handlebars.compile(buttonsTemplateSource);
+const buttonsHtml = buttonsTemplate();
+
+// Render the "bidding" template
+const biddingTemplateSource = document.getElementById('bidding').innerHTML;
+const biddingTemplate = Handlebars.compile(biddingTemplateSource);
+const biddingHtml = biddingTemplate();
+
+// Render the "results" template
+const resultsTemplateSource = document.getElementById('roundResults').innerHTML;
+const resultsTemplate = Handlebars.compile(resultsTemplateSource);
+
+
+//DOM elements
 const AddPlayerButton = document.querySelector('.add-player');
 const PlayerNameInput = document.querySelector('.player-name');
 const resetButton = document.querySelector('.reset');
+
+//*****************************FUNctions*********************************************** */
 
 // How many rounds are we playing? Cards divided by number of players.
 function howManyRounds() {
@@ -25,29 +49,38 @@ function reset() {
   state.players = [];
   NumberOfPlayers = 0;
   AddPlayerButton.disabled = false;
-  templateContainer.innerHTML = '';
+  templateContainer.innerHTML = playerHtml;
+}
+
+// Function to disable the "Add Player" button
+function DisableButton() {
+  if (NumberOfPlayers >= 6) {
+    AddPlayerButton.disabled = true;
+  }
 }
 
 // ********************************Event listeners ***************************************
-  // Reset button
   templateContainer.addEventListener('click', (event) => {
     if (event.target.classList.contains('add-player')) {
-      AddPlayerToState();
+      addPlayerToState();
     }
     else if (event.target.classList.contains('reset')) {
       reset();
     }
     else if (event.target.classList.contains('start-game')) {
-      // Append the "buttons" template to the template container
-      templateContainer.innerHTML = biddingHtml;
+      startGame();
+    }
+    else if (event.target.classList.contains('submit-bids')) {
+      roundResults();
     }
   });
 
 
 // ********************************Start Page ********************************************
 
-// Add a player to the state - one big function, must refactor
-function AddPlayerToState() {
+// Add a player to the state
+function addPlayerToState() {
+  // Add player to the state on click of "Add Player"
   state.players.push({
     playerNumber: 'Player0' + (state.players.length + 1),
     playerName: PlayerNameInput.value,
@@ -56,45 +89,44 @@ function AddPlayerToState() {
   // Increase player count
   NumberOfPlayers++;
   // Reset the input value
-  PlayerNameInput.value = 'Name';
-  // Disable the button if there are 6 players
-  if (NumberOfPlayers === 6) {
-    AddPlayerButton.disabled = true;
-  }
-
+  PlayerNameInput.placeholder = 'Name';
   // Calculate number of rounds
   const numberOfRounds = howManyRounds();
-  
   // Render current player list
   const playerHtml = template({ players: state.players, numberOfRounds: numberOfRounds });
   templateContainer.innerHTML = playerHtml;
-
-  // Render the "buttons" template
-  const buttonsTemplateSource = document.getElementById('buttons').innerHTML;
-  const buttonsTemplate = Handlebars.compile(buttonsTemplateSource);
-  const buttonsHtml = buttonsTemplate();
-
   // Append the "buttons" template to the template container
   templateContainer.innerHTML += buttonsHtml;
 }
 
-// Add a player button
-  AddPlayerButton.addEventListener('click', () => {
-  AddPlayerToState();
-    
-  
-  
-
-  
-});
-
-
-// ********************************Bid Page ********************************************
-
-const biddingTemplateSource = document.getElementById('bidding').innerHTML;
-const biddingTemplate = Handlebars.compile(biddingTemplateSource);
-const biddingHtml = biddingTemplate();
-
+// ********************************Bidding Page ********************************************
+// Start game and render bidding
+function startGame() {
+  // Clear the template container
+  templateContainer.innerHTML = '';
+  // Add bidding template
+  const biddingHtmlWithPlayers = biddingTemplate({
+    roundNumber: currentRound,
+    numberOfTricks: currentRound + 1,
+    players: state.players
+  });
+  templateContainer.innerHTML += biddingHtmlWithPlayers;
+}
 
 
 // ********************************Results Page ********************************************
+// Render results
+function roundResults() {
+  // Clear the template container
+  templateContainer.innerHTML = '';
+  // Add results template
+  const resultsHtml = resultsTemplate({
+    roundNumber: currentRound,
+    numberOfTricks: currentRound,
+    players: state.players
+  });
+  templateContainer.innerHTML = resultsHtml;
+}
+
+
+// fix round number!
