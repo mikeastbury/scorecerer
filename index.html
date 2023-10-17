@@ -33,24 +33,22 @@
         <h3>Round {{roundNumber}}!</h3>
         <h3>Available Tricks This Hand: {{numberOfTricks}}</h3>
         <h3>Pick Your Tricks</h3>
-            {{#each players}}
-                <ul class="player">
-                    <li>{{playerName}}</li>
-                    <li><input type="number" class="tricks" value="0" min="0" max="{{../numberOfTricks}}"></li>
-                </ul>
-            {{/each}}
+            <ul class="players-bid">
+                {{#each players}}
+                    <li class="player">{{playerName}} <input class="player-bid" type="number" class="tricks" value="0" min="0" max="{{../numberOfTricks}}"></li>
+                {{/each}}
+            </ul>
         <button class="submit-bids">Submit Bids</button>
     </script>
     <script id="roundResults" type="text/x-handlebars-template">
         <h3>Round {{roundNumber}} Results!</h3>
         <h3>Available Tricks This Hand: {{numberOfTricks}}</h3>
         <h3>Tricks Won</h3>
-            {{#each players}}
-                <ul class="player">
-                    <li>{{playerName}}</li>
-                    <li><input type="number" class="tricks" value="0" min="0" max="{{../numberOfTricks}}"></li>
-                </ul>
-            {{/each}}
+            <ul class="players-tricks">
+                {{#each players}}
+                    <li class="player">{{playerName}} <input class="player-tricks" type="number" class="tricks" value="0" min="0" max="{{../numberOfTricks}}"></li>
+                {{/each}}
+            </ul>
         <button class="next-round">Next Round</button>
     </script>
 

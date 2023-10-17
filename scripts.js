@@ -52,7 +52,7 @@ function reset() {
   templateContainer.innerHTML = playerHtml;
 }
 
-// Function to disable the "Add Player" button
+// Function to disable the "Add Player" button *** gotta fix this
 function DisableButton() {
   if (NumberOfPlayers >= 6) {
     AddPlayerButton.disabled = true;
@@ -81,9 +81,13 @@ function isLastRound() {
       biddingPage();
     }
     else if (event.target.classList.contains('submit-bids')) {
+      addBidsToState();
+      console.log('Bids added to state:', state.players);
       roundResults();
     }
     else if (event.target.classList.contains('next-round')) {
+      addTricksToState();
+      console.log('Tricks added to state:', state.players);
       biddingPage();
     }
     else if (event.target.classList.contains('score-board')) {
@@ -100,7 +104,9 @@ function addPlayerToState() {
   state.players.push({
     playerNumber: 'Player0' + (state.players.length + 1),
     playerName: PlayerNameInput.value,
-    score: 0,
+    currentBid: 0,
+    totalScore: 0,
+    bidHistory: [],
   });
   // Increase player count
   NumberOfPlayers++;
@@ -132,8 +138,33 @@ function biddingPage() {
   templateContainer.innerHTML += biddingHtmlWithPlayers;
 }
 
+function addBidsToState() {
+  const playerBidInputs = document.querySelectorAll('.player-bid');
+  // Iterate through each player and update their bid based on input value
+  playerBidInputs.forEach((input, index) => {
+    const bidValue = parseInt(input.value);
+    const bidObject = {
+      round: state.round,
+      bid: bidValue,
+    };
+    state.players[index].currentBid = bidValue;
+    state.players[index].bidHistory.push(bidObject);
+  });
+}
+
+
 
 // ********************************Results Page ********************************************
+// add tricks to state
+function addTricksToState() {
+  const playerTrickInputs = document.querySelectorAll('.player-tricks');
+  // Iterate through each player and update their bid based on input value
+  playerTrickInputs.forEach((input, index) => {
+    const trickValue = parseInt(input.value);
+    state.players[index].tricksTaken = trickValue;
+  });
+}
+
 // Render results
 function roundResults() {
   const lastRound = isLastRound();
@@ -148,13 +179,25 @@ function roundResults() {
     players: state.players
   });
   templateContainer.innerHTML = resultsHtml;
+  addTricksToState();
+}
+
+
+function calculateScore() {
+  // Calculate score for each player
+  state.players.forEach((player, index) => {
+    const bid = player.currentBid;
+    const tricks = player.tricksTaken;
+    const score = Math.abs(bid - tricks) * 10;
+    console.log(state.players[index].totalScore += score);
+  });
 }
 
 // ********************************ScoreBoard Page ********************************************
 
-function scoreBoard() {
-  console.log("score")
-}
+// function scoreBoard() {
+  
+// }
 
 
 
