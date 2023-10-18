@@ -10,7 +10,7 @@
 </head>
 <body>
     
-    <h1>Wizard Score</h1>
+    <h1>Wizard! 🧙‍♂️</h1>
     <div id="template-container"></div>
     
     <script id="start" type="text/x-handlebars-template">
@@ -49,6 +49,15 @@
                     <li class="player">{{playerName}} <input class="player-tricks" type="number" class="tricks" value="0" min="0" max="{{../numberOfTricks}}"></li>
                 {{/each}}
             </ul>
+        <button class="scoreboard">Score</button>
+    </script>
+    <script id="scoreBoard" type="text/x-handlebars-template">
+        <h2>Score</h2>
+        <ul class="players-tricks">
+            {{#each players}}
+                <li class="player">{{playerName}} <div class="total-score">{{totalScore}}</div></li>
+            {{/each}}
+        </ul>
         <button class="next-round">Next Round</button>
     </script>
 

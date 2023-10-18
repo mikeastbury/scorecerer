@@ -27,9 +27,13 @@ const biddingTemplateSource = document.getElementById('bidding').innerHTML;
 const biddingTemplate = Handlebars.compile(biddingTemplateSource);
 const biddingHtml = biddingTemplate();
 
-// Render the "results" template
+// Render the "tricks" template
 const resultsTemplateSource = document.getElementById('roundResults').innerHTML;
 const resultsTemplate = Handlebars.compile(resultsTemplateSource);
+
+// Render the "scoreboard" template
+const scoreBoardTemplateSource = document.getElementById('scoreBoard').innerHTML;
+const scoreBoardTemplate = Handlebars.compile(scoreBoardTemplateSource);
 
 
 //DOM elements
@@ -90,8 +94,8 @@ function isLastRound() {
       console.log('Tricks added to state:', state.players);
       biddingPage();
     }
-    else if (event.target.classList.contains('score-board')) {
-      console.log("score board click");
+    else if (event.target.classList.contains('scoreboard')) {
+      scoreBoard();
     }
   });
 
@@ -168,7 +172,7 @@ function addTricksToState() {
 // Render results
 function roundResults() {
   const lastRound = isLastRound();
-  console.log(lastRound);
+  console.log("is it the last round?", lastRound);
   let currentRound = state.round;
   // Clear the template container
   templateContainer.innerHTML = '';
@@ -184,7 +188,7 @@ function roundResults() {
 
 
 function calculateScore() {
-  // Calculate score for each player
+  // Calculate score for each player, run after tricks / before scoreboard template loads
   state.players.forEach((player, index) => {
     const bid = player.currentBid;
     const tricks = player.tricksTaken;
@@ -195,9 +199,10 @@ function calculateScore() {
 
 // ********************************ScoreBoard Page ********************************************
 
-// function scoreBoard() {
-  
-// }
+function scoreBoard() {
+  templateContainer.innerHTML = '';
+  templateContainer.innerHTML = scoreBoardTemplate({  players: state.players });  
+}
 
 
 
