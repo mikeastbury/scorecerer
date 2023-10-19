@@ -90,11 +90,11 @@ function isLastRound() {
       roundResults();
     }
     else if (event.target.classList.contains('next-round')) {
-      addTricksToState();
-      console.log('Tricks added to state:', state.players);
       biddingPage();
     }
     else if (event.target.classList.contains('scoreboard')) {
+      addTricksToState();
+      console.log('Tricks added to state:', state.players);
       scoreBoard();
     }
   });
@@ -150,6 +150,8 @@ function addBidsToState() {
     const bidObject = {
       round: state.round,
       bid: bidValue,
+      tricksWon: 0,
+      roundScore: 0,
     };
     state.players[index].currentBid = bidValue;
     state.players[index].bidHistory.push(bidObject);
@@ -166,6 +168,7 @@ function addTricksToState() {
   playerTrickInputs.forEach((input, index) => {
     const trickValue = parseInt(input.value);
     state.players[index].tricksTaken = trickValue;
+    state.players[index].bidHistory[state.round - 1].tricksWon = trickValue;
   });
 }
 
@@ -186,22 +189,57 @@ function roundResults() {
   addTricksToState();
 }
 
+function bidHistory(player) {
+  // Render bid history
+  const bidHistory = player.bidHistory;
+  bidHistory.forEach((bid) => {
+    return bid;
+  });
+  // console.log('bid history:', bidHistory)
+}
 
 function calculateScore() {
-  // Calculate score for each player, run after tricks / before scoreboard template loads
-  state.players.forEach((player, index) => {
-    const bid = player.currentBid;
-    const tricks = player.tricksTaken;
-    const score = Math.abs(bid - tricks) * 10;
-    console.log(state.players[index].totalScore += score);
+  const players = state.players;
+
+  players.forEach((player) => {
+    let currentScore = 0;
+
+    player.bidHistory.forEach((round) => {
+      if (round.bid === round.tricksWon) {
+        // Score 20 points + 10 points per trick taken
+        const scoreForRound = 20 + 10 * round.tricksWon;
+        currentScore += scoreForRound;
+        round.roundScore = scoreForRound;
+      } else {
+        //Lose 10 points for each over or under trick
+        const difference = Math.abs(round.bid - round.tricksWon);
+        const scoreForRound = -10 * difference;
+        currentScore += scoreForRound;
+        round.roundScore = scoreForRound;
+      }
+      //Math is hard!
+    });
+    player.currentScore = currentScore;
   });
 }
+
+function pushScoreToState() {
+  // Calculate score for each player, run after tricks / before scoreboard template loads
+  const players = state.players;
+ players.forEach((player) => {
+   bidHistory(player);
+    calculateScore();
+ });
+}
+
+
 
 // ********************************ScoreBoard Page ********************************************
 
 function scoreBoard() {
+  pushScoreToState();
   templateContainer.innerHTML = '';
-  templateContainer.innerHTML = scoreBoardTemplate({  players: state.players });  
+  templateContainer.innerHTML = scoreBoardTemplate({  players: state.players, currentScore: state.players.currentScore });  
 }
 
 

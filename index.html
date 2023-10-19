@@ -46,7 +46,7 @@
         <h3>Tricks Won</h3>
             <ul class="players-tricks">
                 {{#each players}}
-                    <li class="player">{{playerName}} <input class="player-tricks" type="number" class="tricks" value="0" min="0" max="{{../numberOfTricks}}"></li>
+                    <li class="player">{{playerName}} <input class="player-tricks" type="number" value="0" min="0" max="{{../numberOfTricks}}"></li>
                 {{/each}}
             </ul>
         <button class="scoreboard">Score</button>
@@ -55,7 +55,7 @@
         <h2>Score</h2>
         <ul class="players-tricks">
             {{#each players}}
-                <li class="player">{{playerName}} <div class="total-score">{{totalScore}}</div></li>
+                <li class="player">{{playerName}} <div class="total-score">{{currentScore}}</div></li>
             {{/each}}
         </ul>
         <button class="next-round">Next Round</button>
