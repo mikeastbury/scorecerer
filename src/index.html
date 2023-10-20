@@ -6,60 +6,77 @@
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 120 100%22><text y=%22.9em%22 font-size=%2290%22>🧙‍♂️</text></svg>">
     <title>Wizard!</title>
     <script src="https://cdn.jsdelivr.net/npm/handlebars@latest/dist/handlebars.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="./styles.scss" />
 
 </head>
 <body>
-    
-    <h1>Wizard! 🧙‍♂️</h1>
+    <header>
+        <div class="container">
+            <h1>Scorecerer</h1>
+            <h2 class="sub">A score-keeper for Wizard</h2>
+        </div>
+    </header>
     <div id="template-container"></div>
     
     <script id="start" type="text/x-handlebars-template">
-        <p>Enter your name and click the button:</p>
-        <input id="name" type="text" class="player-name" value="Name" onfocus="this.value=''">
-        <button class="add-player">Add Player</button>
-        {{#each players}}
-            <ul class="player">
-                <li>{{playerName}}</li>
-            </ul>
-        {{/each}}
+        <div class="start container">
+            <p>Enter your name and click the button:</p>
+            <input id="name" type="text" class="player-name" value="Name" onfocus="this.value=''">
+            <button class="add-player">Add Player</button>
+            {{#each players}}
+                <ul class="player">
+                    <li>{{playerName}}</li>
+                </ul>
+            {{/each}}
+        </div>
     </script>
 
     <script id="buttons" type="text/x-handlebars-template">
-        <button class="start-game">Start! 🧙‍♂️</button>
-        <button class="reset">Reset</button>
+        <div class="container buttons">
+            <button class="start-game">Start! 🧙‍♂️</button>
+            <button class="reset">Reset</button>
+        </div>
     </script>
 
     <script id="bidding" type="text/x-handlebars-template">
-        <h3>Round {{roundNumber}}!</h3>
-        <h3>Available Tricks This Hand: {{numberOfTricks}}</h3>
-        <h3>Pick Your Tricks</h3>
-            <ul class="players-bid">
-                {{#each players}}
-                    <li class="player">{{playerName}} <input class="player-bid" type="number" class="tricks" value="0" min="0" max="{{../numberOfTricks}}"></li>
-                {{/each}}
-            </ul>
-        <button class="submit-bids">Submit Bids</button>
+        <div class="container bidding">
+            <h3>Round {{roundNumber}}!</h3>
+            <h3>Available Tricks This Hand: {{numberOfTricks}}</h3>
+            <h3>Pick Your Tricks</h3>
+                <ul class="players-bid">
+                    {{#each players}}
+                        <li class="player">{{playerName}} <input class="player-bid" type="number" class="tricks" value="0" min="0" max="{{../numberOfTricks}}"></li>
+                    {{/each}}
+                </ul>
+            <button class="submit-bids">Submit Bids</button>
+        </div>
     </script>
     <script id="roundResults" type="text/x-handlebars-template">
-        <h3>Round {{roundNumber}} Results!</h3>
-        <h3>Available Tricks This Hand: {{numberOfTricks}}</h3>
-        <h3>Tricks Won</h3>
-            <ul class="players-tricks">
-                {{#each players}}
-                    <li class="player">{{playerName}} <input class="player-tricks" type="number" value="0" min="0" max="{{../numberOfTricks}}"></li>
-                {{/each}}
-            </ul>
-        <button class="scoreboard">Score</button>
+        <div class="container results">
+            <h3>Round {{roundNumber}} Results!</h3>
+            <h3>Available Tricks This Hand: {{numberOfTricks}}</h3>
+            <h3>Tricks Won</h3>
+                <ul class="players-tricks">
+                    {{#each players}}
+                        <li class="player">{{playerName}} <input class="player-tricks" type="number" value="0" min="0" max="{{../numberOfTricks}}"></li>
+                    {{/each}}
+                </ul>
+            <button class="scoreboard">Score</button>
+        </div>
     </script>
     <script id="scoreBoard" type="text/x-handlebars-template">
-        <h2>Score</h2>
-        <ul class="players-tricks">
-            {{#each players}}
-                <li class="player">{{playerName}} <div class="total-score">{{currentScore}}</div></li>
-            {{/each}}
-        </ul>
-        <button class="next-round">Next Round</button>
+        <div class="container scoreboard">
+            <h2>Score</h2>
+            <ul class="players-tricks">
+                {{#each players}}
+                    <li class="player">{{playerName}} <div class="total-score">{{currentScore}}</div></li>
+                {{/each}}
+            </ul>
+            <button class="next-round">Next Round</button>
+        </div>
     </script>
 
 
