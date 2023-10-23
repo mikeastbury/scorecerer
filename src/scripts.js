@@ -239,7 +239,7 @@ function pushScoreToState() {
 function scoreBoard() {
   pushScoreToState();
   templateContainer.innerHTML = '';
-  templateContainer.innerHTML = scoreBoardTemplate({  players: state.players, currentScore: state.players.currentScore });  
+  templateContainer.innerHTML = scoreBoardTemplate({  players: state.players, currentScore: state.players.currentScore, roundNumber: state.round });  
 }
 
 

@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 120 100%22><text y=%22.9em%22 font-size=%2290%22>🧙‍♂️</text></svg>">
-    <title>Wizard!</title>
+    <title>Scorecerer - keeping score for Wizard</title>
     <script src="https://cdn.jsdelivr.net/npm/handlebars@latest/dist/handlebars.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -16,29 +16,37 @@
     <header>
         <div class="container">
             <h1>Scorecerer</h1>
-            <h2 class="sub">A score-keeper for Wizard</h2>
         </div>
     </header>
     <div id="template-container"></div>
+    <footer>
+        <div class="container">
+            <p>Created by <a href="https://www.mikeastbury.ca/">Mike Astbury</a></p>
+        </div>
+    </footer>
     
     <script id="start" type="text/x-handlebars-template">
         <div class="start container">
-            <p>Enter your name and click the button:</p>
-            <input id="name" type="text" class="player-name" value="Name" onfocus="this.value=''">
-            <button class="add-player">Add Player</button>
-            {{#each players}}
-                <ul class="player">
-                    <li>{{playerName}}</li>
+            <div class="add-players">
+                <div class="buttons-top">
+                    <input id="name" type="text" class="player-name" value="Name" onfocus="this.value=''">
+                    <button class="add-player">Add Player</button>
+                </div>
+                <ul class="player-list">
+                    {{#each players}}
+                        <li>{{playerName}}</li>
+                    {{/each}}
                 </ul>
-            {{/each}}
+                <div class="buttons-bottom">
+                    <button class="reset">Reset</button>
+                    <button class="start-game">Start! 🧙‍♂️</button>
+                </div>
+            </div>
         </div>
     </script>
 
     <script id="buttons" type="text/x-handlebars-template">
-        <div class="container buttons">
-            <button class="start-game">Start! 🧙‍♂️</button>
-            <button class="reset">Reset</button>
-        </div>
+        
     </script>
 
     <script id="bidding" type="text/x-handlebars-template">
@@ -56,7 +64,7 @@
     </script>
     <script id="roundResults" type="text/x-handlebars-template">
         <div class="container results">
-            <h3>Round {{roundNumber}} Results!</h3>
+            <h3>Round {{roundNumber}} Tricks!</h3>
             <h3>Available Tricks This Hand: {{numberOfTricks}}</h3>
             <h3>Tricks Won</h3>
                 <ul class="players-tricks">
@@ -72,7 +80,12 @@
             <h2>Score</h2>
             <ul class="players-tricks">
                 {{#each players}}
-                    <li class="player">{{playerName}} <div class="total-score">{{currentScore}}</div></li>
+                    <li class="player">
+                        Name: {{playerName}}
+                        Current Score: {{currentScore}}
+                        Round: {{roundNumber}}
+
+                    </li>
                 {{/each}}
             </ul>
             <button class="next-round">Next Round</button>
