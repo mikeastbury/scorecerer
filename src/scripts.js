@@ -40,6 +40,7 @@ const scoreBoardTemplate = Handlebars.compile(scoreBoardTemplateSource);
 const AddPlayerButton = document.querySelector('.add-player');
 const PlayerNameInput = document.querySelector('.player-name');
 const resetButton = document.querySelector('.reset');
+const plusMinusContainers = document.querySelectorAll('.bid-plus-minus');
 
 //*****************************FUNctions*********************************************** */
 
@@ -97,22 +98,32 @@ function isLastRound() {
       console.log('Tricks added to state:', state.players);
       scoreBoard();
     }
+    else if (event.target.classList.contains('minus')) {
+      decrementInput(event.target);
+    }
+    if (event.target.classList.contains('plus')) {
+      incrementInput(event.target);
+    }
+    
   });
 
 
 // ********************************Start Page ********************************************
 
-// Add a player to the state
+// Add player to the state on click of "Add Player"
 function addPlayerToState() {
+  // Get the player name from the input element
+  const playerName = document.querySelector('.player-name').value;
   // Add player to the state on click of "Add Player"
   state.players.push({
     playerNumber: 'Player0' + (state.players.length + 1),
-    playerName: PlayerNameInput.value,
+    playerName: playerName, // Set the player name
     currentBid: 0,
     totalScore: 0,
     bidHistory: [],
   });
   // Increase player count
+
   NumberOfPlayers++;
   // Reset the input value
   PlayerNameInput.placeholder = 'Name';
@@ -141,6 +152,28 @@ function biddingPage() {
   });
   templateContainer.innerHTML += biddingHtmlWithPlayers;
 }
+
+function incrementInput(plusButton) {
+  // Traverse the DOM from the plusButton to find the associated input
+  const input = plusButton.parentElement.querySelector('.player-bid');
+  const maxBid = state.round;
+  if (input && parseInt(input.value) < maxBid) {
+    const inputValue = parseInt(input.value);
+    input.value = inputValue + 1;
+  }
+}
+
+function decrementInput(minusButton) {
+  // Traverse the DOM from the minusButton to find the associated input
+  const input = minusButton.parentElement.querySelector('.player-bid');
+  const maxBid = state.round;
+  if (input && parseInt(input.value) > 0) {
+    const inputValue = parseInt(input.value);
+    input.value = inputValue - 1;
+  }
+}
+
+
 
 function addBidsToState() {
   const playerBidInputs = document.querySelectorAll('.player-bid');
@@ -246,4 +279,4 @@ function scoreBoard() {
 
 // ********************************End Page ********************************************
 
-// figure out flow between rounds, scoreboard, and end page
+// TODO: even out bids and tricks (basically the same screen) and fix scoreboard layout

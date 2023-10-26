@@ -11,9 +11,21 @@ $secondary:#354a48;
 $tertiary: #6f9393;
 $quat: #d9e9ea;
 
+a {
+    text-decoration: underline;
+    color: $quat;
+    transition: all 0.3s ease-in-out;
+    &:hover {
+        color: $tertiary;
+    }
+}
+
 header {
     display: flex;
     justify-content: center;
+    .container {
+        border-bottom: 1px solid $secondary;
+    }
 }
 
 footer {
@@ -130,6 +142,38 @@ input {
     font-size: 2.0rem;
 }
 
+.bid-plus-minus {
+    span { 
+        cursor:pointer; 
+    }
+	.number {
+		margin:100px;
+	}
+	.minus, 
+    .plus{
+        width:20px;
+        height:20px;
+        background:#f2f2f2;
+        border-radius:4px;
+        padding:8px 5px 8px 5px;
+        border:1px solid $primary;
+        display: inline-block;
+        vertical-align: middle;
+        text-align: center;
+        color: $primary;
+	}
+	input {
+        height:34px;
+        width: 100px;
+        text-align: center;
+        font-size: 26px;
+        border:1px solid #ddd;
+        border-radius:4px;
+        display: inline-block;
+        vertical-align: middle;
+    }
+}
+
 /*****************************TRICKS************************************/
 
 .players-tricks {
@@ -143,3 +187,22 @@ input {
 
 /*****************************SCORE************************************/
 
+.player-score-board {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    .player-score {
+        padding: 20px;
+        h3 {
+            margin: 0;
+            padding: 0;
+        }
+    }
+    .player-score:nth-child(even) {
+        background-color: $tertiary;
+    }
+    .round-scores {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+    }
+}
