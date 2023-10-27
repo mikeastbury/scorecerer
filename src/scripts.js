@@ -100,9 +100,11 @@ function isLastRound() {
     }
     else if (event.target.classList.contains('minus')) {
       decrementInput(event.target);
+      console.log("minus")
     }
     if (event.target.classList.contains('plus')) {
       incrementInput(event.target);
+      console.log("plus")
     }
     
   });
@@ -161,6 +163,7 @@ function incrementInput(plusButton) {
     const inputValue = parseInt(input.value);
     input.value = inputValue + 1;
   }
+  console.log("input", input)
 }
 
 function decrementInput(minusButton) {
@@ -171,6 +174,7 @@ function decrementInput(minusButton) {
     const inputValue = parseInt(input.value);
     input.value = inputValue - 1;
   }
+  console.log("input", input)
 }
 
 
@@ -196,7 +200,7 @@ function addBidsToState() {
 // ********************************Results Page ********************************************
 // add tricks to state
 function addTricksToState() {
-  const playerTrickInputs = document.querySelectorAll('.player-tricks');
+  const playerTrickInputs = document.querySelectorAll('.player-bid');
   // Iterate through each player and update their bid based on input value
   playerTrickInputs.forEach((input, index) => {
     const trickValue = parseInt(input.value);
@@ -279,4 +283,9 @@ function scoreBoard() {
 
 // ********************************End Page ********************************************
 
-// TODO: even out bids and tricks (basically the same screen) and fix scoreboard layout
+// TODO: 
+  // bids and tricks same view??? 
+  // scoreboard styling
+  // refactor/combine plus minus functions
+  // max players
+  // last round logic

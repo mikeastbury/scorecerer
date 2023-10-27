@@ -59,7 +59,7 @@
                         <li class="player">{{playerName}}
                             <div class="bid-plus-minus">
                                 <span class="minus">-</span>
-                                <input class="player-bid" type="text" class="tricks" value="0" min="0" max="{{../numberOfTricks}}">
+                                <input class="player-bid" type="text" value="0" min="0" max="{{../numberOfTricks}}">
                                 <span class="plus">+</span>
                             </div>
                         </li>
@@ -73,11 +73,17 @@
             <h3>Round {{roundNumber}} Tricks!</h3>
             <h3>Available Tricks This Hand: {{numberOfTricks}}</h3>
             <h3>Tricks Won</h3>
-                <ul class="players-tricks">
-                    {{#each players}}
-                        <li class="player">{{playerName}} <input class="player-tricks" type="number" value="0" min="0" max="{{../numberOfTricks}}"></li>
-                    {{/each}}
-                </ul>
+            <ul class="players-bid">
+                {{#each players}}
+                    <li class="player">{{playerName}}
+                        <div class="bid-plus-minus">
+                            <span class="minus">-</span>
+                            <input class="player-bid" type="text" value="0" min="0" max="{{../numberOfTricks}}">
+                            <span class="plus">+</span>
+                        </div>
+                    </li>
+                {{/each}}
+            </ul>
             <button class="scoreboard">Score</button>
         </div>
     </script>
