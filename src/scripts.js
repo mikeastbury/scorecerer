@@ -17,11 +17,6 @@ const templateContainer = document.getElementById('template-container');
 const playerHtml = template({ players: state.players, numberOfRounds: howManyRounds() });
 templateContainer.innerHTML = playerHtml;
 
-// Render the "buttons" template
-const buttonsTemplateSource = document.getElementById('buttons').innerHTML;
-const buttonsTemplate = Handlebars.compile(buttonsTemplateSource);
-const buttonsHtml = buttonsTemplate();
-
 // Render the "bidding" template
 const biddingTemplateSource = document.getElementById('bidding').innerHTML;
 const biddingTemplate = Handlebars.compile(biddingTemplateSource);
@@ -37,7 +32,7 @@ const scoreBoardTemplate = Handlebars.compile(scoreBoardTemplateSource);
 
 
 //DOM elements
-const AddPlayerButton = document.querySelector('.add-player');
+const AddPlayerButton = document.querySelector(".add-player");
 const PlayerNameInput = document.querySelector('.player-name');
 const resetButton = document.querySelector('.reset');
 const plusMinusContainers = document.querySelectorAll('.bid-plus-minus');
@@ -57,10 +52,12 @@ function reset() {
   templateContainer.innerHTML = playerHtml;
 }
 
-// Function to disable the "Add Player" button *** gotta fix this
-function DisableButton() {
-  if (NumberOfPlayers >= 6) {
-    AddPlayerButton.disabled = true;
+function isMaxPlayers() {
+  if (state.players.length === 6) {
+    return true;
+  }
+  else {
+    return false;
   }
 }
 
@@ -125,18 +122,26 @@ function addPlayerToState() {
     bidHistory: [],
   });
   // Increase player count
-
   NumberOfPlayers++;
   // Reset the input value
-  PlayerNameInput.placeholder = 'Name';
+  PlayerNameInput.value = ''; // Use .value to clear the input field
   // Calculate number of rounds
   const numberOfRounds = howManyRounds();
   // Render current player list
   const playerHtml = template({ players: state.players, numberOfRounds: numberOfRounds });
   templateContainer.innerHTML = playerHtml;
-  // Append the "buttons" template to the template container
-  templateContainer.innerHTML += buttonsHtml;
+
+  // Log messages for debugging
+  // console.log("Player added. Total players:", state.players.length);
+  // console.log("Is AddPlayerButton disabled?", AddPlayerButton.disabled);
+
+  // Disable the "Add Player" button if the maximum number of players is reached
+  if (isMaxPlayers()) {
+    document.getElementsByClassName("add-player")[0].disabled = true;
+  }
 }
+
+
 
 // ********************************Bidding Page ********************************************
 // Start game and render bidding
@@ -287,5 +292,4 @@ function scoreBoard() {
   // bids and tricks same view??? 
   // scoreboard styling
   // refactor/combine plus minus functions
-  // max players
   // last round logic

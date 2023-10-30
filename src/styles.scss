@@ -113,6 +113,14 @@ button {
     }
 }
 
+/* Specific style for disabled 'add-player' button */
+button.add-player:disabled {
+    background-color: gray; /* Change the background color to gray when disabled */
+    color: #ccc; /* Change the text color to a lighter color */
+    cursor: not-allowed; /* Change the cursor to indicate it's not clickable */
+    /* Add any other styles specific to disabled buttons */
+}
+
 input {
     background-color: $secondary;
     color: $white;
