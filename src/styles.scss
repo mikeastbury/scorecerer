@@ -57,7 +57,16 @@ h1 {
     // height: 100vh;
     background: $primary;
     width: 800px;
-    
+}
+
+.top {
+    text-align: center;
+}
+
+.title {
+    font-size: 1.8rem;
+    font-weight: bold;
+    text-transform: uppercase;
 }
 
 body {
@@ -197,7 +206,7 @@ input {
 
 .player-score-board {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-columns: auto auto auto auto;
     .player-score {
         padding: 20px;
         h3 {

@@ -32,6 +32,7 @@
                     <input id="name" type="text" class="player-name" value="Name" onfocus="this.value=''">
                     <button class="add-player">Add Player</button>
                 </div>
+                
                 <ul class="player-list">
                     {{#each players}}
                         <li>{{playerName}}</li>
@@ -51,9 +52,10 @@
 
     <script id="bidding" type="text/x-handlebars-template">
         <div class="container bidding">
-            <h3>Round {{roundNumber}}!</h3>
-            <h3>Available Tricks This Hand: {{numberOfTricks}}</h3>
-            <h3>Pick Your Tricks</h3>
+            <div class="top">
+                <h2 class="title">Round {{roundNumber}}!</h2>
+                <h3>Available Tricks This Hand: {{numberOfTricks}}</h3>
+            </div>
                 <ul class="players-bid">
                     {{#each players}}
                         <li class="player">{{playerName}}
@@ -70,9 +72,11 @@
     </script>
     <script id="roundResults" type="text/x-handlebars-template">
         <div class="container results">
-            <h3>Round {{roundNumber}} Tricks!</h3>
-            <h3>Available Tricks This Hand: {{numberOfTricks}}</h3>
-            <h3>Tricks Won</h3>
+            <div class="top">
+                <h2 class="title">Round {{roundNumber}} Results!</h2>
+                <h3>Available Tricks This Hand: {{numberOfTricks}}</h3>
+                <h3>Tricks Won</h3>
+            </div>
             <ul class="players-bid">
                 {{#each players}}
                     <li class="player">{{playerName}}
@@ -91,15 +95,22 @@
         <div class="container scoreboard">
             <h2>Score</h2>
             <div class="player-score-board">
+                <ul class="each-round">
+                {{#each roundsPlayed}}
+                    <li class="round-number">Round {{this}}</li>
+                {{/each}}
+                    <li class="total">Total:</li>
+                </ul>
+
                 {{#each players}}
                 <div class="player-score">
                   <h3>{{playerName}}</h3>
                   <ul class="round-scores">
                     {{#each bidHistory}}
-                      <li class="round-score">Round {{round}}: {{roundScore}}</li>
+                      <li class="round-score">{{roundScore}}</li>
                     {{/each}}
                   </ul>
-                  <h3>Total: {{currentScore}}</h3>
+                  <h3>{{currentScore}}</h3>
                 </div>
               {{/each}}
             </div>

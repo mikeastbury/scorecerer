@@ -1,6 +1,7 @@
 let state = {
     players: [],
     round: 0,
+    roundsPlayed: [],
 }
 
 //State variables
@@ -69,6 +70,13 @@ function isLastRound() {
   else {
     return false;
   }
+}
+
+// Add to rounds played array, mostly needed for handlebars scoreboard loop
+function roundsPlayed() {
+  let roundsPlayed = state.roundsPlayed;
+  let roundCount = state.round;
+  roundsPlayed.push(roundCount);
 }
 
 // ********************************Event listeners ***************************************
@@ -150,6 +158,7 @@ function biddingPage() {
   templateContainer.innerHTML = '';
   // Increase round count
   state.round++;
+  roundsPlayed();
   let currentRound = state.round;
   // Add bidding template
   const biddingHtmlWithPlayers = biddingTemplate({
@@ -281,7 +290,7 @@ function pushScoreToState() {
 function scoreBoard() {
   pushScoreToState();
   templateContainer.innerHTML = '';
-  templateContainer.innerHTML = scoreBoardTemplate({  players: state.players, currentScore: state.players.currentScore, roundNumber: state.round });  
+  templateContainer.innerHTML = scoreBoardTemplate({  players: state.players, currentScore: state.players.currentScore, roundsPlayed: state.roundsPlayed });  
 }
 
 
@@ -290,6 +299,7 @@ function scoreBoard() {
 
 // TODO: 
   // bids and tricks same view??? 
+  // errors and validation
   // scoreboard styling
   // refactor/combine plus minus functions
   // last round logic
