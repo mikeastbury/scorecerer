@@ -96,23 +96,24 @@
             <h2>Score</h2>
             <div class="player-score-board">
                 <ul class="each-round">
+                    <h3>Round</h3>
                 {{#each roundsPlayed}}
-                    <li class="round-number">Round {{this}}</li>
+                    <li class="round-number"><p>{{this}}</p></li>
                 {{/each}}
                     <li class="total">Total:</li>
                 </ul>
-
-                {{#each players}}
-                <div class="player-score">
-                  <h3>{{playerName}}</h3>
-                  <ul class="round-scores">
-                    {{#each bidHistory}}
-                      <li class="round-score">{{roundScore}}</li>
+                <ul class="round-scores">
+                    {{#each players}}
+                    <li class="player-score">
+                        <h3>{{playerName}}</h3>
+                        
+                        {{#each bidHistory}}
+                        <p class="round-score">{{roundScore}}</p>
+                        {{/each}}
+                        <p class="current-score">{{currentScore}}</p>
+                    </li>
                     {{/each}}
-                  </ul>
-                  <h3>{{currentScore}}</h3>
-                </div>
-              {{/each}}
+                </ul>
             </div>
             <button class="next-round">Next Round</button>
           </div>
