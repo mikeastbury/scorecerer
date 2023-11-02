@@ -88,7 +88,10 @@ function roundsPlayed() {
       reset();
     }
     else if (event.target.classList.contains('start-game')) {
-      biddingPage();
+      const startGame = checkForPlayers();
+      if (startGame) {
+        biddingPage();
+      }
     }
     else if (event.target.classList.contains('submit-bids')) {
       addBidsToState();
@@ -207,6 +210,17 @@ function addBidsToState() {
     state.players[index].currentBid = bidValue;
     state.players[index].bidHistory.push(bidObject);
   });
+}
+
+function checkForPlayers() {
+  if (state.players.length === 0) {
+    alert("Please add players before starting the game.");
+    return false;
+  }
+  else {
+    return true;
+  }
+
 }
 
 

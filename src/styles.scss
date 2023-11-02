@@ -222,7 +222,9 @@ input {
         border-radius:4px;
         padding:8px 5px 8px 5px;
         border:1px solid $primary;
-        display: inline-block;
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
         vertical-align: middle;
         text-align: center;
         color: $primary;
@@ -284,4 +286,17 @@ input {
             }
         }
     }
+}
+
+/*****************************ERRORS************************************/
+
+.error {
+    color: red;
+    font-size: 1.5rem;
+    font-weight: bold;
+    text-align: center;
+}
+
+.hidden {
+    display: none;
 }
